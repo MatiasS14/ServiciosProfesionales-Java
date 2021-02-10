@@ -4,7 +4,7 @@ import java.util.HashSet;
 
 public class ProfesionalVinculadoUniversidad extends Profesional{
 	
-	public public ProfesionalVinculadoUniversidad(Universidad universidad) {
+	public ProfesionalVinculadoUniversidad(Universidad universidad) {
 		super(universidad);
 	}
 

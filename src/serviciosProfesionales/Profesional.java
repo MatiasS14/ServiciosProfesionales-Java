@@ -2,7 +2,7 @@ package serviciosProfesionales;
 import java.util.Set;
 
 public abstract class Profesional {
-	private Universidad  universidad;
+	protected Universidad  universidad;
 		
 	public Profesional(Universidad universidad) {
 		this.universidad = universidad;
