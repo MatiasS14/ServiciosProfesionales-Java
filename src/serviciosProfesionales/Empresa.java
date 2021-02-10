@@ -34,7 +34,7 @@ public class Empresa {
 	}
 	
 	public Profesional profesionalMasBarato() {
-		Profesional ret;
+		Profesional ret= null;
 		for (Profesional prof : this.profesionales) {
 			if(ret == null) {
 				ret = prof;
@@ -65,6 +65,7 @@ public class Empresa {
 				ret++;
 			}
 		}
+		return ret;
 	}
 	
 	public Boolean esPocoAtractivo(Profesional prof) {
@@ -116,7 +117,7 @@ public class Empresa {
 	}
 	
 	private Profesional profesionalQueAtiendeA(Solicitante solicitante) {
-		Profesional ret;
+		Profesional ret = null;
 		for(Profesional prof : this.profesionales) {
 			if(ret == null) {
 				if(solicitante.puedeSerAtendidoPor(prof)) {
