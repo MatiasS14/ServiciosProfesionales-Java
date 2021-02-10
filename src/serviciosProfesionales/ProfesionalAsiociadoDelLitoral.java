@@ -6,7 +6,7 @@ public class ProfesionalAsiociadoDelLitoral extends Profesional{
 	private Set<String> provinciasParaTrabajar;
 	private AsociacionProfesionalesDelLitoral asociacion;
 	
-	public public ProfesionalAsiociadoDelLitoral(Universidad universidad,
+	public ProfesionalAsiociadoDelLitoral(Universidad universidad,
 												AsociacionProfesionalesDelLitoral asociacion) {
 		super(universidad);
 		this.asociacion = asociacion;
