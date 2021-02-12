@@ -8,6 +8,8 @@ public class Empresa {
 	private Integer honorarioRecomendado;
 	
 	public Empresa(Integer honorarioRecomendado) {
+		this.profesionales = new HashSet<Profesional>();
+		this.clientes= new HashSet<Solicitante>();
 		this.honorarioRecomendado = honorarioRecomendado;
 	}
 	
