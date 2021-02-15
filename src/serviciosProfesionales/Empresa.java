@@ -71,9 +71,9 @@ public class Empresa {
 	}
 	
 	public Boolean esPocoAtractivo(Profesional prof) {
-		Boolean ret = false;
+		Boolean ret = true;
 		for(String provincia : prof.provinciasParaTrabajar()) {
-			ret = this.alguienMasCubre(prof, provincia) && alguienCobraMenos(provincia, prof);
+			ret = ret && (this.alguienMasCubre(prof, provincia) && alguienCobraMenos(provincia, prof));
 		}
 		
 		return ret;
