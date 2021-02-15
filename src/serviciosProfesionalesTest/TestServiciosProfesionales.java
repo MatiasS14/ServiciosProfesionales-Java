@@ -19,8 +19,9 @@ class TestServiciosProfesionales {
 	//Profesionales
 	Profesional juana;
 	Profesional melina;
-	Profesional rocio;
-	Profesional luciana;
+	ProfesionalLibre rocio; //es necesario que sea ProfesionalLibre
+							//para pasar dinero a otro profesional
+	ProfesionalLibre luciana;
 	
 	//Provincias para profesionales libres
 	Set<String> provinciasRocio;
@@ -108,5 +109,39 @@ class TestServiciosProfesionales {
 		assertEquals(0, empresa.profesionalesDeUniversidad(universidadSanMartin));
 	}
 	
+	@Test
+	void testCobros() {
+		
+//		########### Profesional vinculado ###########
+		//juana es profesional vinculada a universidad
+		//de lo que cobra dona la mitad a la universidad
+		//y el resto lo gasta
+		juana.cobrar(5000);
+		assertEquals(0, juana.totalRecaudado());
+		assertEquals(2500, juana.universidad().donacionesRecibidas());
+		
+//		########### Profesional asociado ###########
+		//melina es profesional asociada al litoral
+		//de lo que cobra dona todo a la asociacion
+		melina.cobrar(5000);
+		assertEquals(0, melina.totalRecaudado());
+		assertEquals(5000, asocLitoral.donacionesRecibidas());
+		
+//		########### Profesional libre ###########
+		//rocio es profesional libre
+		//se guarda el total de lo cobrado
+		rocio.cobrar(5000);
+		assertEquals(5000, rocio.totalRecaudado());
+		
+		//Rocio le pasa dinero a juana
+		rocio.pasarDinero(2000, juana);
+		//se resta el dinero dado de lo recaudado de rocio
+		assertEquals(3000, rocio.totalRecaudado());
+		//juana da la mitad a la universidad y el resto lo gasta
+		assertEquals(0, juana.totalRecaudado());
+		assertEquals(3500, juana.universidad().donacionesRecibidas());
+		
+		
+	}
 
 }

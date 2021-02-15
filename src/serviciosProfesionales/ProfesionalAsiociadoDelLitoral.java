@@ -35,5 +35,5 @@ public class ProfesionalAsiociadoDelLitoral extends Profesional{
 	public Integer totalRecaudado() {
 		return 0;
 	}
-	
+
 }
