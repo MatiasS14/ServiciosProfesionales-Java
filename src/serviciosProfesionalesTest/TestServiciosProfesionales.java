@@ -13,6 +13,9 @@ class TestServiciosProfesionales {
 	Universidad universidadCorrientes;
 	Universidad universidadHurlingam;
 	
+	//Asociacion del Litoral
+	AsociacionProfesionalesDelLitoral asocLitoral;
+	
 	//Profesionales
 	Profesional juana;
 	Profesional melina;
@@ -39,6 +42,8 @@ class TestServiciosProfesionales {
 //	de Hurlingham: está en la provincia de Buenos Aires, los honorarios recomendados son de 8800 pesos.
 		universidadHurlingam = new Universidad("Buenos Aires", 8800);
 //////////////////////////////////////////////////////////////////////////////////////
+		asocLitoral = new AsociacionProfesionalesDelLitoral();
+//////////////////////////////////////////////////////////////////////////////////////
 		//provincias
 		provinciasRocio = new HashSet<String>();
 		provinciasRocio.add("Santa Fe");
@@ -53,9 +58,7 @@ class TestServiciosProfesionales {
 //	Juana, vinculada, estudió en la Univ. de Rosario.
 		juana = new ProfesionalVinculadoUniversidad(universidadRosario);
 //	Melina, asociada el Litoral, estudió en la Univ. de Corrientes.
-		//se pasa como argumento null en lugar de una asociacion
-		//ya que no es necesario utilizarla en esta etapa
-		melina = new ProfesionalAsiociadoDelLitoral(universidadCorrientes, null);
+		melina = new ProfesionalAsiociadoDelLitoral(universidadCorrientes, asocLitoral);
 //	Rocío, libre, estudió en la Univ. de Hurlingham, honorarios 5000 pesos, puede trabajar en Santa Fe, Córdoba y Buenos Aires.
 		rocio = new ProfesionalLibre(universidadHurlingam, provinciasRocio, 5000);
 //	Luciana, libre, estudió en la Univ. de Rosario, honorarios 3200 pesos, puede trabajar en Santa Fe y Entre Ríos.
