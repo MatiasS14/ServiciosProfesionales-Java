@@ -30,6 +30,18 @@ class TestServiciosProfesionales {
 	//Empresa
 	Empresa empresa;
 	
+	//Universidades para instituciones
+	Set<Universidad> universidadesInst1;
+	Set<Universidad> universidadesInst2;
+	
+	//Solicitantes
+	InstitucionSolicitante institucion1;//puede ser atendida
+	InstitucionSolicitante institucion2;//no puede ser atendida
+	
+	PersonaSolicitante personaSolicitante1;//puede ser atendida
+	PersonaSolicitante personaSolicitante2;//no puede ser atendida
+	
+	
 	@BeforeEach
 	void setup() {
 		
@@ -37,7 +49,7 @@ class TestServiciosProfesionales {
 //	de San Martín: está en la provincia de Buenos Aires, los honorarios recomendados son de 3500 pesos.
 		universidadSanMartin = new Universidad("Buenos Aires",3500);
 //	de Rosario: está en la provincia de Santa Fe, los honorarios recomendados son de 2800 pesos.
-		universidadRosario = new Universidad("Santa Fe", 200);
+		universidadRosario = new Universidad("Santa Fe", 2800);
 //	de Corrientes: está en la provincia de Corrientes, los honorarios recomendados son de 4200 pesos.
 		universidadCorrientes = new Universidad("Corrientes", 4200);
 //	de Hurlingham: está en la provincia de Buenos Aires, los honorarios recomendados son de 8800 pesos.
@@ -50,6 +62,7 @@ class TestServiciosProfesionales {
 		provinciasRocio.add("Santa Fe");
 		provinciasRocio.add("Cordoba");
 		provinciasRocio.add("Buenos Aires");
+		provinciasRocio.add("Entre Rios");
 		
 		provinciasLuciana = new HashSet<String>();
 		provinciasLuciana.add("Santa Fe");
@@ -64,6 +77,7 @@ class TestServiciosProfesionales {
 		rocio = new ProfesionalLibre(universidadHurlingam, provinciasRocio, 5000);
 //	Luciana, libre, estudió en la Univ. de Rosario, honorarios 3200 pesos, puede trabajar en Santa Fe y Entre Ríos.
 		luciana= new ProfesionalLibre(universidadRosario, provinciasLuciana, 3200);
+//
 //////////////////////////////////////////////////////////////////////////////////////
 		//Empresa
 		empresa = new Empresa(3500);
@@ -72,6 +86,23 @@ class TestServiciosProfesionales {
 		empresa.contratarProfesional(melina);
 		empresa.contratarProfesional(rocio);
 		empresa.contratarProfesional(luciana);
+//////////////////////////////////////////////////////////////////////////////////////
+		//Universidades para Instituciones
+		universidadesInst1 = new HashSet<Universidad>();
+		universidadesInst1.add(universidadRosario);
+		universidadesInst1.add(universidadHurlingam);
+		universidadesInst1.add(universidadSanMartin);
+
+		universidadesInst2 = new HashSet<Universidad>();
+		universidadesInst1.add(universidadSanMartin);
+//////////////////////////////////////////////////////////////////////////////////////
+		//Instituciones 
+		institucion1 = new InstitucionSolicitante(universidadesInst1);
+		institucion2 = new InstitucionSolicitante(universidadesInst2);
+//////////////////////////////////////////////////////////////////////////////////////
+		//Personas solicitantes
+		personaSolicitante1 = new PersonaSolicitante("Buenos Aires");
+		personaSolicitante2 = new PersonaSolicitante("La Rioja");
 	}
 	
 	@Test
@@ -141,6 +172,68 @@ class TestServiciosProfesionales {
 		assertEquals(0, juana.totalRecaudado());
 		assertEquals(3500, juana.universidad().donacionesRecibidas());
 		
+		
+	}
+	@Test
+	void testSolicitantes() {
+		//institucion1 puede ser atendida por la empresa
+		assertTrue(empresa.satisfaceA(institucion1));
+		//institucion2 no puede ser atendida por la empresa
+		assertFalse(empresa.satisfaceA(institucion2));
+		
+		//personaSolicitante1 puede ser atendida por la empresa
+		assertTrue(empresa.satisfaceA(personaSolicitante1));
+		//personaSolicitante2 no puede ser atendida por la empresa
+		assertFalse(empresa.satisfaceA(personaSolicitante2));
+	}
+	
+	@Test
+	void testRegistroDeTrabajosRealizados() {
+		//empresa da servicio a institucion1
+		assertFalse(empresa.esCliente(institucion1));
+		empresa.darServicio(institucion1);
+		assertTrue(empresa.esCliente(institucion1));
+		//ahora empresa trata de dar servicio a institucion 2
+		//pero no puede
+		try{
+			empresa.darServicio(institucion2);
+		}catch(RuntimeException e) {
+			System.out.println(e);			
+		}
+		
+		//empresa da servicio a personaSolicitante1
+		assertFalse(empresa.esCliente(personaSolicitante1));
+		empresa.darServicio(personaSolicitante1);
+		assertTrue(empresa.esCliente(personaSolicitante1));
+		//ahora empresa trata de dar servicio a personaSolicitante2
+		//pero no puede
+		try{
+			empresa.darServicio(personaSolicitante2);
+		}catch(RuntimeException e) {
+			System.out.println(e);			
+		}
+		//si le preguntamos a la empresa la cantidad 
+		//de clientes, debe dar 2, siendo que solo
+		//pudo atender a insitucion1 y personaSolicitante1
+		assertEquals(2, empresa.cantidadDeClientes());
+		
+		//determina si institucion1 es cliente de empresa
+		assertTrue(empresa.esCliente(institucion1));
+		//determina si institucion2 es cliente de empresa
+		assertFalse(empresa.esCliente(institucion2));
+		//determina si personaSolicitante1 es cliente de empresa
+		assertTrue(empresa.esCliente(personaSolicitante1));
+		//determina si personaSolicitante2 es cliente de empresa
+		assertFalse(empresa.esCliente(personaSolicitante2));
+	}
+	
+	@Test
+	void testEmpresa() {
+		//test de metodos que quedaron sin testear
+		//Juana no es poco atractiva
+		assertFalse(empresa.esPocoAtractivo(juana));		
+		//Luciana es poco atractiva
+		assertTrue(empresa.esPocoAtractivo(luciana));
 		
 	}
 
