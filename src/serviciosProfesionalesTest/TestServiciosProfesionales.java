@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import java.util.Set;
 import java.util.HashSet;
 
-class TestEtapa1 {
+class TestServiciosProfesionales {
 	//Universidades
 	Universidad universidadSanMartin;
 	Universidad universidadRosario;
