@@ -73,16 +73,26 @@ public class Empresa {
 	public Boolean esPocoAtractivo(Profesional prof) {
 		Boolean ret = false;
 		for(String provincia : prof.provinciasParaTrabajar()) {
-			ret = estaCubierta(provincia) || alguienCobraMenos(provincia, prof);
+			ret = this.alguienMasCubre(prof, provincia) && alguienCobraMenos(provincia, prof);
 		}
 		
 		return ret;
 	}
+	
+//	//proposito: determina si alguien mas cubre la provincia
+	private Boolean alguienMasCubre(Profesional prof, String provincia) {
+		Boolean ret = false;
+		for(Profesional profesional : this.profesionales) {
+			ret = ret || this.puedeTrabajarEn(profesional, provincia) && prof != profesional; 
+		}
+	 return ret;
+	}
+	
 	//proposito : determina si hay alguien que trabaje en cierta provincia
 	//            que cobre menos que prof
 	private Boolean alguienCobraMenos(String provincia, Profesional prof) {
 		Boolean ret = false;
-		for(Profesional profesional : profesionalesProvincia(provincia)) {
+		for(Profesional profesional : this.profesionalesProvincia(provincia)) {
 			ret = ret || profesional.honorariosPorHora() < prof.honorariosPorHora();
 		}
 	 return ret;	
