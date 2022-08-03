@@ -2,6 +2,8 @@ package serviciosProfesionalesTest;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import serviciosProfesionales.*;
+import serviciosProfesionales.borradores.BorradorEmpresa;
+import serviciosProfesionales.errores.ErrorEmpresa;
 import serviciosProfesionales.profesionales.Profesional;
 import serviciosProfesionales.profesionales.ProfesionalAsiociadoDelLitoral;
 import serviciosProfesionales.profesionales.ProfesionalLibre;
@@ -34,6 +36,9 @@ class TestServiciosProfesionales {
 	Set<String> provinciasRocio;
 	Set<String> provinciasLuciana;
 	
+	//Borrador empresa
+	BorradorEmpresa borradorEmpresa; 
+	
 	//Empresa
 	Empresa empresa;
 	
@@ -50,7 +55,7 @@ class TestServiciosProfesionales {
 	
 	
 	@BeforeEach
-	void setup() {
+	void setup() throws ErrorEmpresa{
 		
 		//Creacion de universidades
 //	de San Martín: está en la provincia de Buenos Aires, los honorarios recomendados son de 3500 pesos.
@@ -86,8 +91,10 @@ class TestServiciosProfesionales {
 		luciana= new ProfesionalLibre(universidadRosario, provinciasLuciana, 3200);
 //
 //////////////////////////////////////////////////////////////////////////////////////
+		//Borrador empresa
+		borradorEmpresa = new BorradorEmpresa(3500);
 		//Empresa
-		empresa = new Empresa(3500);
+		empresa = new Empresa(borradorEmpresa);
 		//La empresa contrata profesionales
 		empresa.contratarProfesional(juana);
 		empresa.contratarProfesional(melina);

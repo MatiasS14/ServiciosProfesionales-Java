@@ -1,6 +1,8 @@
 package serviciosProfesionales;
 import java.util.Set;
 
+import serviciosProfesionales.borradores.BorradorEmpresa;
+import serviciosProfesionales.errores.ErrorEmpresa;
 import serviciosProfesionales.profesionales.Profesional;
 import serviciosProfesionales.solicitantes.Solicitante;
 
@@ -11,10 +13,18 @@ public class Empresa {
 	private Set<Solicitante> clientes;
 	private Integer honorarioRecomendado;
 	
-	public Empresa(Integer honorarioRecomendado) {
+	public Empresa(BorradorEmpresa empresa) throws ErrorEmpresa{
+		verificarEmpresa(empresa);
 		this.profesionales = new HashSet<Profesional>();
 		this.clientes= new HashSet<Solicitante>();
-		this.honorarioRecomendado = honorarioRecomendado;
+		this.honorarioRecomendado = empresa.honorarioRecomendado;
+	}
+	
+	private void verificarEmpresa(BorradorEmpresa empresa) throws ErrorEmpresa{
+		if(empresa.honorarioRecomendado < 0 || empresa.honorarioRecomendado == null) {
+			throw new ErrorEmpresa("Los honorarios recomendados no son validos");
+		}
+		
 	}
 	
 	public void contratarProfesional(Profesional prof) {
