@@ -37,9 +37,11 @@ class TestServiciosProfesionales {
 	Set<String> provinciasLuciana;
 	
 	//Borrador empresa
+	BorradorEmpresa borradorEmpresaFalla; 
 	BorradorEmpresa borradorEmpresa; 
 	
 	//Empresa
+	Empresa empresaFalla;
 	Empresa empresa;
 	
 	//Universidades para instituciones
@@ -94,6 +96,7 @@ class TestServiciosProfesionales {
 		//Borrador empresa
 		borradorEmpresa = new BorradorEmpresa(3500);
 		//Empresa
+		
 		empresa = new Empresa(borradorEmpresa);
 		//La empresa contrata profesionales
 		empresa.contratarProfesional(juana);
@@ -202,7 +205,7 @@ class TestServiciosProfesionales {
 	}
 	
 	@Test
-	void testRegistroDeTrabajosRealizados() {
+	void testRegistroDeTrabajosRealizados() throws ErrorEmpresa{
 		//empresa da servicio a institucion1
 		assertFalse(empresa.esCliente(institucion1));
 		empresa.darServicio(institucion1);
@@ -211,7 +214,7 @@ class TestServiciosProfesionales {
 		//pero no puede
 		try{
 			empresa.darServicio(institucion2);
-		}catch(RuntimeException e) {
+		}catch(ErrorEmpresa e) {
 			System.out.println(e);			
 		}
 		
@@ -223,7 +226,7 @@ class TestServiciosProfesionales {
 		//pero no puede
 		try{
 			empresa.darServicio(personaSolicitante2);
-		}catch(RuntimeException e) {
+		}catch(ErrorEmpresa e) {
 			System.out.println(e);			
 		}
 		//si le preguntamos a la empresa la cantidad 
@@ -242,13 +245,22 @@ class TestServiciosProfesionales {
 	}
 	
 	@Test
-	void testEmpresa() {
+	void testEmpresa(){
 		//test de metodos que quedaron sin testear
 		//Juana no es poco atractiva
 		assertFalse(empresa.esPocoAtractivo(juana));		
 		//Luciana es poco atractiva
 		assertTrue(empresa.esPocoAtractivo(luciana));
 		
+	}
+	
+	@Test
+	void testErrorCrearEmpresa() {
+		//Lanza error al tratar crear empresa con honorarios no validos
+		borradorEmpresaFalla = new BorradorEmpresa(0);
+		try {
+		empresaFalla = new Empresa(borradorEmpresaFalla);
+		}catch(ErrorEmpresa e) {System.out.println(e);}
 	}
 
 }

@@ -14,16 +14,17 @@ public class Empresa {
 	private Integer honorarioRecomendado;
 	
 	public Empresa(BorradorEmpresa empresa) throws ErrorEmpresa{
-		verificarEmpresa(empresa);
-		this.profesionales = new HashSet<Profesional>();
-		this.clientes= new HashSet<Solicitante>();
-		this.honorarioRecomendado = empresa.honorarioRecomendado;
+		if(verificarEmpresa(empresa)) {
+		 this.profesionales = new HashSet<Profesional>();
+		 this.clientes= new HashSet<Solicitante>();
+		 this.honorarioRecomendado = empresa.honorarioRecomendado;
+		}else {throw new ErrorEmpresa("Los honorarios recomendados no son validos");}
 	}
 	
-	private void verificarEmpresa(BorradorEmpresa empresa) throws ErrorEmpresa{
-		if(empresa.honorarioRecomendado < 0 || empresa.honorarioRecomendado == null) {
-			throw new ErrorEmpresa("Los honorarios recomendados no son validos");
-		}
+	private Boolean verificarEmpresa(BorradorEmpresa empresa) {
+		if(empresa.honorarioRecomendado < 1 || empresa.honorarioRecomendado == null) {
+			return false;
+		}else {return true;}
 		
 	}
 	
@@ -132,13 +133,13 @@ public class Empresa {
 		return ret;
 	}
 	
-	public void darServicio(Solicitante solicitante) {
+	public void darServicio(Solicitante solicitante)throws ErrorEmpresa {
 		if(this.satisfaceA(solicitante)) {
 			Profesional prof = profesionalQueAtiendeA(solicitante);
 			prof.cobrar(prof.honorariosPorHora());
 			this.clientes.add(solicitante);			
 		}else {
-			throw new RuntimeException("El solicitante no puede ser atendido");
+			throw new ErrorEmpresa("El solicitante no puede ser atendido");
 		}
 	}
 	
