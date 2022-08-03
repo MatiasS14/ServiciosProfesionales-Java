@@ -1,5 +1,9 @@
-package serviciosProfesionales;
+package serviciosProfesionales.profesionales;
 import java.util.Set;
+
+import serviciosProfesionales.AsociacionProfesionalesDelLitoral;
+import serviciosProfesionales.Universidad;
+
 import java.util.HashSet;
 
 public class ProfesionalAsiociadoDelLitoral extends Profesional{

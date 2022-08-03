@@ -1,5 +1,7 @@
-package serviciosProfesionales;
+package serviciosProfesionales.profesionales;
 import java.util.Set;
+
+import serviciosProfesionales.Universidad;
 
 public abstract class Profesional {
 	protected Universidad  universidad;

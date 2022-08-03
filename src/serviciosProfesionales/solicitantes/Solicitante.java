@@ -1,4 +1,6 @@
-package serviciosProfesionales;
+package serviciosProfesionales.solicitantes;
+
+import serviciosProfesionales.profesionales.Profesional;
 
 public abstract class Solicitante {
 	public Solicitante() {}

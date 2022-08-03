@@ -1,6 +1,8 @@
-package serviciosProfesionales;
+package serviciosProfesionales.profesionales;
 
 import java.util.Set;
+
+import serviciosProfesionales.Universidad;
 
 public class ProfesionalLibre extends Profesional{
 	private Set<String> provincias;

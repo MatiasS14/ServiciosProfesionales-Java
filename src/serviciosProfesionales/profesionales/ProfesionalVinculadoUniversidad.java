@@ -1,5 +1,8 @@
-package serviciosProfesionales;
+package serviciosProfesionales.profesionales;
 import java.util.Set;
+
+import serviciosProfesionales.Universidad;
+
 import java.util.HashSet;
 
 public class ProfesionalVinculadoUniversidad extends Profesional{

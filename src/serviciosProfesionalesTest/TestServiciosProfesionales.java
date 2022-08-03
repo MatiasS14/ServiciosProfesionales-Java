@@ -2,6 +2,13 @@ package serviciosProfesionalesTest;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import serviciosProfesionales.*;
+import serviciosProfesionales.profesionales.Profesional;
+import serviciosProfesionales.profesionales.ProfesionalAsiociadoDelLitoral;
+import serviciosProfesionales.profesionales.ProfesionalLibre;
+import serviciosProfesionales.profesionales.ProfesionalVinculadoUniversidad;
+import serviciosProfesionales.solicitantes.InstitucionSolicitante;
+import serviciosProfesionales.solicitantes.PersonaSolicitante;
+
 import org.junit.jupiter.api.BeforeEach;
 import java.util.Set;
 import java.util.HashSet;

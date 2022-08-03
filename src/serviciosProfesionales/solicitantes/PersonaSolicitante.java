@@ -1,4 +1,6 @@
-package serviciosProfesionales;
+package serviciosProfesionales.solicitantes;
+
+import serviciosProfesionales.profesionales.Profesional;
 
 public class PersonaSolicitante extends Solicitante{
 	private String provincia;

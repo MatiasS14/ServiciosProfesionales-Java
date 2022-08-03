@@ -1,5 +1,9 @@
 package serviciosProfesionales;
 import java.util.Set;
+
+import serviciosProfesionales.profesionales.Profesional;
+import serviciosProfesionales.solicitantes.Solicitante;
+
 import java.util.HashSet;
 
 public class Empresa {
