@@ -3,6 +3,7 @@ import java.util.Set;
 
 import serviciosProfesionales.AsociacionProfesionalesDelLitoral;
 import serviciosProfesionales.Universidad;
+import serviciosProfesionales.errores.ErrorAsociacionDelLitoral;
 
 import java.util.HashSet;
 
@@ -31,7 +32,7 @@ public class ProfesionalAsiociadoDelLitoral extends Profesional{
 	}
 
 	@Override
-	public void cobrar(Integer dinero) {
+	public void cobrar(Integer dinero)throws ErrorAsociacionDelLitoral{
 		this.asociacion.recibirDonacion(dinero);
 	}
 

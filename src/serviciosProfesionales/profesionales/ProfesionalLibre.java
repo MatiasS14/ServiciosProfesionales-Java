@@ -3,6 +3,7 @@ package serviciosProfesionales.profesionales;
 import java.util.Set;
 
 import serviciosProfesionales.Universidad;
+import serviciosProfesionales.errores.ErrorAsociacionDelLitoral;
 
 public class ProfesionalLibre extends Profesional{
 	private Set<String> provincias;
@@ -35,7 +36,7 @@ public class ProfesionalLibre extends Profesional{
 		return this.totalRecaudado;
 	}
 	
-	public void pasarDinero(Integer dinero, Profesional prof) {
+	public void pasarDinero(Integer dinero, Profesional prof) throws ErrorAsociacionDelLitoral{
 		this.totalRecaudado -= dinero;
 		prof.cobrar(dinero);
 	}
