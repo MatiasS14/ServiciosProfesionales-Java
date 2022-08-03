@@ -3,12 +3,16 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import serviciosProfesionales.*;
 import serviciosProfesionales.borradores.BorradorEmpresa;
+import serviciosProfesionales.borradores.BorradorInstitucionSolicitante;
+import serviciosProfesionales.borradores.BorradorPersonaSolicitante;
 import serviciosProfesionales.borradores.BorradorProfesionalLibre;
 import serviciosProfesionales.borradores.BorradorProfesionalLitoral;
 import serviciosProfesionales.borradores.BorradorProfesionalUniversidad;
 import serviciosProfesionales.borradores.BorradorUniversidad;
 import serviciosProfesionales.errores.ErrorAsociacionDelLitoral;
 import serviciosProfesionales.errores.ErrorEmpresa;
+import serviciosProfesionales.errores.ErrorInstitucionSolicitante;
+import serviciosProfesionales.errores.ErrorPersonaSolicitante;
 import serviciosProfesionales.errores.ErrorProfesional;
 import serviciosProfesionales.errores.ErrorUniversidad;
 import serviciosProfesionales.profesionales.Profesional;
@@ -68,6 +72,13 @@ class TestServiciosProfesionales {
 	Set<Universidad> universidadesInst1;
 	Set<Universidad> universidadesInst2;
 	
+	//Borradores solicitantes
+	BorradorInstitucionSolicitante borradorInstitucion1;//puede ser atendida
+	BorradorInstitucionSolicitante borradorInstitucion2;//no puede ser atendida
+	
+	BorradorPersonaSolicitante borradorPersonaSolicitante1;//puede ser atendida
+	BorradorPersonaSolicitante borradorPersonaSolicitante2;//no puede ser atendida
+	
 	//Solicitantes
 	InstitucionSolicitante institucion1;//puede ser atendida
 	InstitucionSolicitante institucion2;//no puede ser atendida
@@ -77,7 +88,7 @@ class TestServiciosProfesionales {
 	
 	
 	@BeforeEach
-	void setup() throws ErrorEmpresa,ErrorUniversidad, ErrorProfesional{
+	void setup() throws ErrorEmpresa,ErrorUniversidad, ErrorProfesional, ErrorPersonaSolicitante, ErrorInstitucionSolicitante{
 		
 		//Borradores universidades
 		borradorUniversidadSanMartin = new BorradorUniversidad("Buenos Aires", 3500);
@@ -142,15 +153,21 @@ class TestServiciosProfesionales {
 		universidadesInst1.add(universidadSanMartin);
 
 		universidadesInst2 = new HashSet<Universidad>();
-		universidadesInst1.add(universidadSanMartin);
+		universidadesInst2.add(universidadSanMartin);
 //////////////////////////////////////////////////////////////////////////////////////
+		//Borradores instituciones
+		borradorInstitucion1 = new BorradorInstitucionSolicitante(universidadesInst1);
+		borradorInstitucion2 = new BorradorInstitucionSolicitante(universidadesInst2);
 		//Instituciones 
-		institucion1 = new InstitucionSolicitante(universidadesInst1);
-		institucion2 = new InstitucionSolicitante(universidadesInst2);
+		institucion1 = new InstitucionSolicitante(borradorInstitucion1);
+		institucion2 = new InstitucionSolicitante(borradorInstitucion2);
 //////////////////////////////////////////////////////////////////////////////////////
+		//Borrador persona solicitante
+		borradorPersonaSolicitante1 = new BorradorPersonaSolicitante("Buenos Aires");
+		borradorPersonaSolicitante2 = new BorradorPersonaSolicitante("La Rioja");
 		//Personas solicitantes
-		personaSolicitante1 = new PersonaSolicitante("Buenos Aires");
-		personaSolicitante2 = new PersonaSolicitante("La Rioja");
+		personaSolicitante1 = new PersonaSolicitante(borradorPersonaSolicitante1);
+		personaSolicitante2 = new PersonaSolicitante(borradorPersonaSolicitante2);
 	}
 	
 	@Test
