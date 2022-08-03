@@ -3,7 +3,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import serviciosProfesionales.*;
 import serviciosProfesionales.borradores.BorradorEmpresa;
+import serviciosProfesionales.borradores.BorradorUniversidad;
+import serviciosProfesionales.errores.ErrorAsociacionDelLitoral;
 import serviciosProfesionales.errores.ErrorEmpresa;
+import serviciosProfesionales.errores.ErrorUniversidad;
 import serviciosProfesionales.profesionales.Profesional;
 import serviciosProfesionales.profesionales.ProfesionalAsiociadoDelLitoral;
 import serviciosProfesionales.profesionales.ProfesionalLibre;
@@ -16,6 +19,12 @@ import java.util.Set;
 import java.util.HashSet;
 
 class TestServiciosProfesionales {
+	
+	//Borradores universidades
+	BorradorUniversidad borradorUniversidadSanMartin;
+	BorradorUniversidad borradorUniversidadRosario;
+	BorradorUniversidad borradorUniversidadCorrientes;
+	BorradorUniversidad borradorUniversidadHurlingam;
 	//Universidades
 	Universidad universidadSanMartin;
 	Universidad universidadRosario;
@@ -57,17 +66,23 @@ class TestServiciosProfesionales {
 	
 	
 	@BeforeEach
-	void setup() throws ErrorEmpresa{
+	void setup() throws ErrorEmpresa,ErrorUniversidad{
+		
+		//Borradores universidades
+		borradorUniversidadSanMartin = new BorradorUniversidad("Buenos Aires", 3500);
+		borradorUniversidadRosario= new BorradorUniversidad("Santa Fe", 2800);
+		borradorUniversidadCorrientes= new BorradorUniversidad("Corrientes", 4200);		
+		borradorUniversidadHurlingam = new BorradorUniversidad("Buenos Aires", 8800);
 		
 		//Creacion de universidades
 //	de San Martín: está en la provincia de Buenos Aires, los honorarios recomendados son de 3500 pesos.
-		universidadSanMartin = new Universidad("Buenos Aires",3500);
+		universidadSanMartin = new Universidad(borradorUniversidadSanMartin);
 //	de Rosario: está en la provincia de Santa Fe, los honorarios recomendados son de 2800 pesos.
-		universidadRosario = new Universidad("Santa Fe", 2800);
+		universidadRosario = new Universidad(borradorUniversidadRosario);
 //	de Corrientes: está en la provincia de Corrientes, los honorarios recomendados son de 4200 pesos.
-		universidadCorrientes = new Universidad("Corrientes", 4200);
+		universidadCorrientes = new Universidad(borradorUniversidadCorrientes);
 //	de Hurlingham: está en la provincia de Buenos Aires, los honorarios recomendados son de 8800 pesos.
-		universidadHurlingam = new Universidad("Buenos Aires", 8800);
+		universidadHurlingam = new Universidad(borradorUniversidadHurlingam);
 //////////////////////////////////////////////////////////////////////////////////////
 		asocLitoral = new AsociacionProfesionalesDelLitoral();
 //////////////////////////////////////////////////////////////////////////////////////
@@ -158,7 +173,7 @@ class TestServiciosProfesionales {
 	}
 	
 	@Test
-	void testCobros() {
+	void testCobros() throws ErrorAsociacionDelLitoral{
 		
 //		########### Profesional vinculado ###########
 		//juana es profesional vinculada a universidad
@@ -205,7 +220,7 @@ class TestServiciosProfesionales {
 	}
 	
 	@Test
-	void testRegistroDeTrabajosRealizados() throws ErrorEmpresa{
+	void testRegistroDeTrabajosRealizados() throws ErrorEmpresa,ErrorAsociacionDelLitoral{
 		//empresa da servicio a institucion1
 		assertFalse(empresa.esCliente(institucion1));
 		empresa.darServicio(institucion1);

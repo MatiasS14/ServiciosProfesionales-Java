@@ -2,6 +2,7 @@ package serviciosProfesionales;
 import java.util.Set;
 
 import serviciosProfesionales.borradores.BorradorEmpresa;
+import serviciosProfesionales.errores.ErrorAsociacionDelLitoral;
 import serviciosProfesionales.errores.ErrorEmpresa;
 import serviciosProfesionales.profesionales.Profesional;
 import serviciosProfesionales.solicitantes.Solicitante;
@@ -133,7 +134,7 @@ public class Empresa {
 		return ret;
 	}
 	
-	public void darServicio(Solicitante solicitante)throws ErrorEmpresa {
+	public void darServicio(Solicitante solicitante)throws ErrorEmpresa, ErrorAsociacionDelLitoral {
 		if(this.satisfaceA(solicitante)) {
 			Profesional prof = profesionalQueAtiendeA(solicitante);
 			prof.cobrar(prof.honorariosPorHora());
