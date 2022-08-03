@@ -3,9 +3,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import serviciosProfesionales.*;
 import serviciosProfesionales.borradores.BorradorEmpresa;
+import serviciosProfesionales.borradores.BorradorProfesionalLibre;
+import serviciosProfesionales.borradores.BorradorProfesionalLitoral;
+import serviciosProfesionales.borradores.BorradorProfesionalUniversidad;
 import serviciosProfesionales.borradores.BorradorUniversidad;
 import serviciosProfesionales.errores.ErrorAsociacionDelLitoral;
 import serviciosProfesionales.errores.ErrorEmpresa;
+import serviciosProfesionales.errores.ErrorProfesional;
 import serviciosProfesionales.errores.ErrorUniversidad;
 import serviciosProfesionales.profesionales.Profesional;
 import serviciosProfesionales.profesionales.ProfesionalAsiociadoDelLitoral;
@@ -33,6 +37,13 @@ class TestServiciosProfesionales {
 	
 	//Asociacion del Litoral
 	AsociacionProfesionalesDelLitoral asocLitoral;
+	
+	//Borradores profesionales
+	BorradorProfesionalUniversidad borradorJuana;
+	BorradorProfesionalLitoral borradorMelina;
+	BorradorProfesionalLibre borradorRocio; 
+	BorradorProfesionalLibre borradorLuciana;
+	
 	
 	//Profesionales
 	Profesional juana;
@@ -66,7 +77,7 @@ class TestServiciosProfesionales {
 	
 	
 	@BeforeEach
-	void setup() throws ErrorEmpresa,ErrorUniversidad{
+	void setup() throws ErrorEmpresa,ErrorUniversidad, ErrorProfesional{
 		
 		//Borradores universidades
 		borradorUniversidadSanMartin = new BorradorUniversidad("Buenos Aires", 3500);
@@ -96,16 +107,21 @@ class TestServiciosProfesionales {
 		provinciasLuciana = new HashSet<String>();
 		provinciasLuciana.add("Santa Fe");
 		provinciasLuciana.add("Entre Rios");
-//////////////////////////////////////////////////////////////////////////////////////		
+//////////////////////////////////////////////////////////////////////////////////////
+		//Borradores profesionales
+		borradorJuana = new BorradorProfesionalUniversidad(universidadRosario);
+		borradorMelina = new BorradorProfesionalLitoral(universidadCorrientes, asocLitoral);
+		borradorRocio = new BorradorProfesionalLibre(universidadHurlingam, provinciasRocio, 5000);
+		borradorLuciana= new BorradorProfesionalLibre(universidadRosario, provinciasLuciana, 3200);
 		//Creacion de profesionales
 //	Juana, vinculada, estudió en la Univ. de Rosario.
-		juana = new ProfesionalVinculadoUniversidad(universidadRosario);
+		juana = new ProfesionalVinculadoUniversidad(borradorJuana);
 //	Melina, asociada el Litoral, estudió en la Univ. de Corrientes.
-		melina = new ProfesionalAsiociadoDelLitoral(universidadCorrientes, asocLitoral);
+		melina = new ProfesionalAsiociadoDelLitoral(borradorMelina);
 //	Rocío, libre, estudió en la Univ. de Hurlingham, honorarios 5000 pesos, puede trabajar en Santa Fe, Córdoba y Buenos Aires.
-		rocio = new ProfesionalLibre(universidadHurlingam, provinciasRocio, 5000);
+		rocio = new ProfesionalLibre(borradorRocio); 
 //	Luciana, libre, estudió en la Univ. de Rosario, honorarios 3200 pesos, puede trabajar en Santa Fe y Entre Ríos.
-		luciana= new ProfesionalLibre(universidadRosario, provinciasLuciana, 3200);
+		luciana= new ProfesionalLibre(borradorLuciana);
 //
 //////////////////////////////////////////////////////////////////////////////////////
 		//Borrador empresa

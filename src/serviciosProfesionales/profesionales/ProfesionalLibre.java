@@ -3,17 +3,29 @@ package serviciosProfesionales.profesionales;
 import java.util.Set;
 
 import serviciosProfesionales.Universidad;
+import serviciosProfesionales.borradores.BorradorProfesionalLibre;
 import serviciosProfesionales.errores.ErrorAsociacionDelLitoral;
+import serviciosProfesionales.errores.ErrorProfesional;
 
 public class ProfesionalLibre extends Profesional{
 	private Set<String> provincias;
 	private Integer honorarios;
 	private Integer totalRecaudado = 0;
 	
-	public ProfesionalLibre(Universidad universidad, Set<String> provincias, Integer honorarios) {
-		super(universidad);
-		this.provincias = provincias;
-		this.honorarios = honorarios;
+	public ProfesionalLibre(BorradorProfesionalLibre prof) throws ErrorProfesional{
+		super(prof.universidad);
+		verificarProf(prof);
+		this.provincias = prof.provincias;
+		this.honorarios = prof.honorarios;
+	}
+	
+	private void verificarProf(BorradorProfesionalLibre prof)throws ErrorProfesional {
+		if(prof.provincias.size() < 1) {
+		  throw new ErrorProfesional("El profesional debe poder trabajar en al menos una provincia");
+		}
+		if(prof.honorarios < 1 || prof.honorarios == null) {
+			throw new ErrorProfesional("Los honorarios deben ser mayor a 0");
+		}
 	}
 
 	@Override

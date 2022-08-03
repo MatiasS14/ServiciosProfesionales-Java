@@ -3,6 +3,7 @@ import java.util.Set;
 
 import serviciosProfesionales.AsociacionProfesionalesDelLitoral;
 import serviciosProfesionales.Universidad;
+import serviciosProfesionales.borradores.BorradorProfesionalLitoral;
 import serviciosProfesionales.errores.ErrorAsociacionDelLitoral;
 
 import java.util.HashSet;
@@ -11,10 +12,9 @@ public class ProfesionalAsiociadoDelLitoral extends Profesional{
 	private Set<String> provinciasParaTrabajar;
 	private AsociacionProfesionalesDelLitoral asociacion;
 	
-	public ProfesionalAsiociadoDelLitoral(Universidad universidad,
-												AsociacionProfesionalesDelLitoral asociacion) {
-		super(universidad);
-		this.asociacion = asociacion;
+	public ProfesionalAsiociadoDelLitoral(BorradorProfesionalLitoral prof) {
+		super(prof.universidad);
+		this.asociacion = prof.asociacion;
 		
 		this.provinciasParaTrabajar = new HashSet<String>();
 		this.provinciasParaTrabajar.add("Entre Rios");

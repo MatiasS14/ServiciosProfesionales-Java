@@ -2,13 +2,14 @@ package serviciosProfesionales.profesionales;
 import java.util.Set;
 
 import serviciosProfesionales.Universidad;
+import serviciosProfesionales.borradores.BorradorProfesionalUniversidad;
 
 import java.util.HashSet;
 
 public class ProfesionalVinculadoUniversidad extends Profesional{
 	
-	public ProfesionalVinculadoUniversidad(Universidad universidad) {
-		super(universidad);
+	public ProfesionalVinculadoUniversidad(BorradorProfesionalUniversidad prof) {
+		super(prof.universidad);
 	}
 
 	@Override
